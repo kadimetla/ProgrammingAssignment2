@@ -25,15 +25,17 @@ m <- NULL
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
         
-         m <- NULL
-  set <- function(y) {
-    x <<- y
-    m <<- NULL
+     m <- x$getinv()
+  if(!is.null(m)) {
+    message("getting cached data")
+    return(m)
   }
-  get <- function() x
-  setinv <- function(inv) m <<- inv
-  getinv <- function() m
-  list(set = set, get = get,
-       setinv = setinv,
-       getinv = getinv)
+  data <- x$get()
+  # check if matrix can be inverted
+  if ( det(data) == 1) {
+  m <- solve(data, ...)
+  x$setinv(m)
+ }
+  m
+
 }
