@@ -23,19 +23,16 @@ m <- NULL
 ## inverse matrix and cache the inverse of matrix
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+## Return a matrix that is the inverse of 'x'
         
-     m <- x$getinv()
+  m <- x$getinv()
   if(!is.null(m)) {
     message("getting cached data")
     return(m)
   }
   data <- x$get()
-  # check if matrix can be inverted
-  if ( det(data) == 1) {
   m <- solve(data, ...)
   x$setinv(m)
- }
   m
 
 }
